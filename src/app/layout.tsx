@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Afacad, Gabarito } from "next/font/google";
+import { Afacad } from "next/font/google";
 import "./globals.css";
 import { AppThemeProvider } from "@/providers/theme-provider";
 import HeaderNavbar from "@/components/HeaderNavbar";

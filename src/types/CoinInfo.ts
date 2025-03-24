@@ -14,7 +14,7 @@ export interface CoinData {
     categories: string[];
     preview_listing: boolean;
     public_notice: string | null;
-    additional_notices: any[];
+    additional_notices: string[];
     localization: Record<string, string>;
     description: Record<string, string>;
     links: {
@@ -22,8 +22,8 @@ export interface CoinData {
         whitepaper: string;
         blockchain_site: string[];
         official_forum_url: string[];
-        chat_url: any[];
-        announcement_url: any[];
+        chat_url: string[];
+        announcement_url: string[];
         snapshot_url: string | null;
         twitter_screen_name: string;
         facebook_username: string;
@@ -32,7 +32,7 @@ export interface CoinData {
         subreddit_url: string;
         repos_url: {
             github: string[];
-            bitbucket: any[];
+            bitbucket: string[];
         };
     };
     image: {
@@ -48,10 +48,10 @@ export interface CoinData {
     market_cap_rank: number;
     market_data: {
         current_price: Record<string, number>;
-        total_value_locked: any;
-        mcap_to_tvl_ratio: any;
-        fdv_to_tvl_ratio: any;
-        roi: any;
+        total_value_locked: string | null;
+        mcap_to_tvl_ratio: string | null;
+        fdv_to_tvl_ratio: string | null;
+        roi: string | null;
         ath: Record<string, number>;
         ath_change_percentage: Record<string, number>;
         ath_date: Record<string, string>;
@@ -82,13 +82,13 @@ export interface CoinData {
         last_updated: string;
     };
     community_data: {
-        facebook_likes: any;
+        facebook_likes: number | string | null;
         twitter_followers: number;
         reddit_average_posts_48h: number;
         reddit_average_comments_48h: number;
         reddit_subscribers: number;
         reddit_accounts_active_48h: number;
-        telegram_channel_user_count: any;
+        telegram_channel_user_count: number | string | null;
     };
     developer_data: {
         forks: number;
@@ -103,9 +103,9 @@ export interface CoinData {
             deletions: number;
         };
         commit_count_4_weeks: number;
-        last_4_weeks_commit_activity_series: any[];
+        last_4_weeks_commit_activity_series: string[] | number[] | null;
     };
-    status_updates: any[];
+    status_updates: string[] | number[] |  null;
     last_updated: string;
     tickers: Ticker[];
 }
