@@ -77,6 +77,7 @@ const CurrencyCalculator = ({
           onChange={handleFromAmountChange}
           className="p-2 mr-2 border-0 !text-lg"
           min={0}
+          step={0.01}
         />
 
         <div className="w-auto pl-1 pr-8 flex items-center bg-muted/5 rounded-md">
@@ -106,6 +107,7 @@ const CurrencyCalculator = ({
           onChange={handleToAmountChange}
           className="w-full p-2 mr-2 border-0 !text-lg"
           min={0}
+          step={0.01}
         />
 
         <Select value={selectedCurrency} onValueChange={handleCurrencyChange}>
