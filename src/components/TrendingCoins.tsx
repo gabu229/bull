@@ -6,6 +6,8 @@ import useSWR from "swr";
 import { SectionSkeleton } from "./ui/skeleton";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Marquee from "react-fast-marquee";
+import { useTheme } from "next-themes";
 
 interface CoinData {
   item: {
@@ -22,6 +24,7 @@ interface CoinData {
 const currency = "usd";
 
 export default function TrendingCoins() {
+  const { theme } = useTheme()
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
   const {
     data: coins,
@@ -39,19 +42,39 @@ export default function TrendingCoins() {
   if (error) return <div>Failed to load coin history</div>;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {coins.coins.slice(0, 4).map((coin: CoinData, i: number) => (
-        <Link href={`/cryptocurrencies/${coin.item.id}`} key={i}>
-          <Card className="relative bg-accent/5 dark:bg-primary/20 hover:bg-accent/20 dark:hover:bg-primary/25 text-foreground rounded-xl py-3 sm:py-5">
+    <Marquee
+      className=""
+      loop={0}
+      pauseOnHover
+      gradient
+      gradientColor={theme === "dark" ? "#141414" : "#efefef"}
+      gradientWidth={125}
+    >
+      {coins.coins.slice(0, 8).map((coin: CoinData, i: number) => (
+        <Link
+          href={`/cryptocurrencies/${coin.item.id}`}
+          key={i}
+          className="block mx-3"
+        >
+          <Card className="relative min-w-[200px] md:min-w-[250px] bg-accent/5 dark:bg-primary/20 hover:bg-accent/20 dark:hover:bg-primary/25 text-foreground rounded-xl py-3 sm:py-5">
             <CardContent className="flex flex-col gap-0">
-              <div className="w-8 aspect-square rounded-full overflow-hidden mb-3">
+              <div className="w-full flex justify-between mb-2">
+                <div className="w-8 aspect-square rounded-full overflow-hidden mb-3">
+                  <Image
+                    src={coin.item.small}
+                    alt={coin.item.name}
+                    width={200}
+                    height={200}
+                    className="w-full h-auto p-0 m-0"
+                    loading="lazy"
+                  />
+                </div>
                 <Image
-                  src={coin.item.small}
-                  alt={coin.item.name}
-                  width={200}
-                  height={200}
-                  className="w-full h-auto p-0 m-0"
-                  loading="lazy"
+                  src={coin.item.data.sparkline}
+                  alt="Graph"
+                  width={1000}
+                  height={1000}
+                  className="w-full h-auto aspect-[4/1] max-w-[100px]"
                 />
               </div>
 
@@ -61,7 +84,7 @@ export default function TrendingCoins() {
                   ${" "}
                   {coin.item.data.price.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
-                    maximumFractionDigits: 3,
+                    maximumFractionDigits: 2,
                   })}
                 </p>
                 <div className="text-right text-sm flex justify-end items-center gap-0">
@@ -84,7 +107,7 @@ export default function TrendingCoins() {
                   </p>
                 </div>
               </div>
-              <div className="">
+              <div className="hidden md:blocka">
                 <Image
                   src={coin.item.data.sparkline}
                   alt="Graph"
@@ -97,6 +120,6 @@ export default function TrendingCoins() {
           </Card>
         </Link>
       ))}
-    </div>
+    </Marquee>
   );
 }
